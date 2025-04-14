@@ -6,7 +6,8 @@ const bcrypt = require('bcryptjs');
 // @route POST /api/auth/register
 const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
-
+  const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(userIP, 'userIP is as follows');
   const userExists = await User.findOne({ email });
   if (userExists)
     return res.status(400).json({ message: 'User already exists' });
@@ -24,6 +25,7 @@ const registerUser = async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      ip: userIP,
     });
   } else {
     res.status(400).json({ message: 'Invalid user data' });
