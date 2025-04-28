@@ -1,17 +1,18 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
+// Function to generate JWT Token
 const generateToken = (res, userId) => {
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
-    });
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: '30d', // Token expiration
+  });
 
-    res.cookie("jwt", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    });
+  // Set the token in cookies
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Secure cookie in production
+    sameSite: 'Strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days expiration
+  });
 };
 
 module.exports = generateToken;
-

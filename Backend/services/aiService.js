@@ -17,7 +17,7 @@ async function summarizeNews(content) {
           {
             parts: [
               {
-                text: 'Summarize the following news article in a concise manner:',
+                text: `Summarize the following news article in a concise manner. The article can be in any language. Preserve the original language in the summary. If the article is in Hindi, summarize in Hindi. If it’s in English, summarize in English. Same goes for other languages:`,
               },
               { text: content },
             ],
@@ -41,7 +41,7 @@ async function summarizeNews(content) {
       console.error('Full Gemini API Error:', error.response.data);
     }
 
-    return 'Error generating summary.';
+    throw new Error('Summary generation failed');
   }
 }
 

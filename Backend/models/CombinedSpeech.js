@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const combinedSpeechSchema = new mongoose.Schema({
   category: String,
-  combinedText: String,
+  transcript: String, // original full text
+  summary: String, // summarized version
   audioPath: String,
   createdAt: {
     type: Date,

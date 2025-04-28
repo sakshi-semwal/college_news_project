@@ -40,15 +40,21 @@ const fetchAndSaveNews = async (req, res) => {
 
             const exists = await News.findOne({ title, content });
             if (!exists) {
-              const newArticle = new News({ title, content });
+              const newArticle = new News({
+                ...article,
+                rawData: article,
+                title,
+                content,
+              });
               const saved = await newArticle.save();
               allFetchedArticles.push(saved);
             }
           }
         }
       } catch (error) {
-               console.error(`%cError fetching news for category ${cat}: ${error.message}`, 'color: red'
-
+        console.error(
+          `%cError fetching news for category ${cat}: ${error.message}`,
+          'color: red'
         );
         // Continue with the next category even if the current one fails
       }
